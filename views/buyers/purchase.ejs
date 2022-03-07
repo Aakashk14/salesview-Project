@@ -1,0 +1,150 @@
+<html>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+    <style>
+        .purchase{
+            height: 530px;
+            width: 600px;
+            position: relative;
+            left:10px;
+            border:2px solid
+        }
+        #title{
+            border:2px solid black;
+            position: relative;
+            bottom:17px;
+            text-align: center;
+        }
+        .about input,.details #name{
+         position: relative;
+         left:150px;
+        }
+        .details label{
+            margin-left:10px;
+            position: relative;
+            left:40px;
+            top:28px;
+        }
+        .details input{
+            display: block;
+            margin: 10px;
+        }
+        .details_payment{
+            position: relative;
+            top:1px;
+            
+        }
+        .payment #title{
+            top:60px;
+        }
+        
+        #payment_1{
+            position: relative;
+            top:82px;
+            display: block;
+            left:50px;
+        }
+        .details_payment label{
+            position: relative;
+            top:100px;
+            left:100px;
+        }
+        #sbmt{
+            position: relative;
+            top:240px;
+            width: 140px;
+            left:40%;
+            height: 60px;
+            border-radius: 4px;
+            background-color: rgb(14, 83, 161);
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+        }
+        .about{
+        width: 400px;
+        height: 300px;
+        position: relative;
+        left:700px;
+        bottom:520px;
+        padding: 10px;
+        border: 4px solid rgb(132, 132, 139);
+        background-color: #8d8080;
+        
+    }
+    #item_image{
+        position: relative;
+        left:40%;
+
+    }
+    .about #name {
+        font-size: larger;
+        margin:14px;
+        display: inline-block;
+        cursor: default;
+        position: relative;
+        bottom: 140px;
+        right:100px;
+
+    }
+    #note{
+        position: relative;
+        bottom:20px;
+        left:10px;
+    }
+
+    </style>
+
+    <script>
+
+        function verify(){
+            event.preventDefault()
+            if(document.getElementById("b_name").value.length ==0 || document.getElementById("street").length==0 || document.getElementById("city").length==0)
+        {
+            alert("No empty fields allow")
+            return false
+        }else{
+            return true
+        }
+
+        $(()=>{
+            $(".main").load("header1.html")
+        })
+    </script>
+
+    <body>
+        <div class="purchase">
+            <form method="POST" onsubmit="return verify()" action="/payment/<%= data.userid %>/<%= data.items[0].identity %>">
+            <p id="title">Shipping Details</p>
+            <div class="details">
+               <label for="b_name">Name</label> <input type="text" id="name" name="b_name" value="">
+                </input>
+                <label for="street">Street</label> <input type="text" id="name" name="street" value="">
+
+                <label for="city">City</label> <input type="text" id="name" name="city" value="">
+
+
+            </div>
+            <div class="payment">
+                <p id="title">Payment Details</p>
+                <div class="details_payment">
+                   <label for="payment_1">Wallet</label> <input type="radio" name="payment" id="payment_1" value="Wallet">
+                   <label for="payment_1">COD</label> <input type="radio" name="payment" id="payment_1" value="Wallet">
+                   <p id="note">Since its a demo project, you can select any &submit</p>
+
+                </div>
+            </div>
+            <input type="submit" id="sbmt" value="Buy">
+            </form>
+        </div>
+        
+        <% if(data.items[0].File==true) {%>
+        <div class="about" style="display: block;">
+            <p id="name" >name</p>
+            <img id="item_image" width="100px" height="200px" src="/image_pvt/<%=data.userid %>/<%= data.items[0].identity %>/<%= data.items[0].Images %>">
+        </div>
+        <% } %>
+        <div class="main">
+            </div>
+    </body>
+</html>

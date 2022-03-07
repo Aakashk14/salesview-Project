@@ -1,0 +1,120 @@
+<html>
+    <link rel="stylesheet" href="header.css">
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+    <script>
+        $(()=>{
+            $(".main").load("header.html")
+        })
+    </script>
+
+    <style>
+        .main_box{
+            position: relative;
+            background-color: rgb(231, 211, 211);
+            width: 616px;
+            height: 600px;
+            left: 20%;
+            top:10%;
+        }
+        #btn1{
+            height: 200px;
+            position: relative;
+            left:110px;
+            top:50px;
+            width: 400px;
+            border: 4px dotted;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+       .fields{
+           position: absolute;
+           top:50%;
+       }
+       #submit{
+           position: relative;
+           top:25px;
+           width: 130px;
+           height: 32px;
+           left:40%;
+           border-radius: 4px;
+       }
+       #name{
+           border-radius: 2px;
+           height: 35px;
+           width: 300px;
+           outline: none;
+       }
+       #desc{
+           border-radius: 4px;
+           resize: none;
+       }
+        
+    </style>
+    <script>
+        $(()=>{
+            const socket = io();
+
+            socket.on("message",(data)=>{
+                $("#new").css("display","block")
+            })
+            $('.main').load("/header.html"); 
+
+            $("#btn1").on("click",function(){
+                $("#file").click()
+            })
+
+            $("#submit").on("click",()=>{
+                let name = document.getElementById("name").value;
+                let desc = document.getElementById("desc").value;
+                let item_file = document.getElementById("file").files[0]
+
+                let data = new FormData()
+                data.append("name",name);
+                data.append("desc",desc);
+                data.append("item_file",item_file)
+
+                $.ajax({
+                    url:"/item",
+                    method:"POST",
+                    data:data,
+                    processData:false,
+                    contentType:false,
+                    success:function(response){
+                        if(response!=0){
+                            location.href="http://localhost:3000/product/"+parseInt(response)
+                        }else{
+                            alert("Something went wrong")
+                            location.reload()
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+    <body>
+        
+        <div class="main"></div>
+        <div class="main_box">
+            <form>
+            <div class="box1">
+           <input type="button" id="btn1"value="Upload" name="item_file">
+           <input type="file" id="file" name="item_file" style="display: none;">
+              </div>
+              <div class="fields">
+                  
+                <p id="name_p">Name of Item</p>
+                <input type="text" name="Name" id="name">
+                <p id="desc_p">Description</p>
+                <textarea cols="81" rows="6" id="desc"></textarea>
+                <input type="button" value="Create Item" id="submit">
+
+                  
+              </div>
+              </form>
+    </body>
+</html>

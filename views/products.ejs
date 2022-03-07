@@ -1,0 +1,68 @@
+<html>
+    <link rel="stylesheet" href="header.css">
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+<style>
+   #items_table{
+            position: absolute;
+            left:30px;
+            top:20%;
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 60%;
+        
+          /*  background-color: rgba(224, 233, 223, 0.87); */
+        
+
+        }
+        #items_table td,#items_table th{
+            border: 1px solid #ddd;
+            padding: 8px;
+
+        }
+        #items_table th{
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #0c266d;
+            color: rgb(222, 228, 236);
+        }
+        #items_table td{
+            max-width: 100px;
+            overflow-x: hidden;
+            font-family: Arov;
+        }
+</style>
+<script>
+    $(()=>{
+       $('.main').load("header.html"); 
+    })
+</script>
+<body>
+    <div class="items">
+        <table id="items_table">
+            <tr>
+                <th>Order_id</th>
+                <th>Sold</th>
+                <th>Action</th>
+
+                </tr>
+                <% for(let i=0;i<items.items.length;i++) {%>
+                    <tr>
+                    <td><%= items.items[i].Name %></td>
+                    <td><%= items.items[i].item_id %></td>
+                    <td><input type="button" value="View" id="btn1" onclick="location.href='/product/<%= items.items[i].item_id %>'"> </td>
+              <tr>
+              <% } %>
+               
+                </table>
+    </div>
+    <div class="main">
+
+    </div>
+
+</body>
+</html>

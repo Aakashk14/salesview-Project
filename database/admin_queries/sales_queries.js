@@ -113,7 +113,6 @@ function total_sales(userid,status){
 }
 
 
-function update_order(req)
 module.exports={
     add:add_item,
     single_item:single_item,

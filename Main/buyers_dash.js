@@ -6,11 +6,10 @@ const router = express.Router()
 
 router.get("/home",async(req,res)=>{
     if(!req.session.userid){
-        res.redirect("/buyer/login")
+        res.redirect("/")
     }else if(req.session.level==0){
         res.redirect("/dashboard")
     }else{
-console.log("dashhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     result = await db.fetch_order(req.session.userid)
     let all_sellersid=[]
     for(let i=0;i< result[0].orders.length;i++){

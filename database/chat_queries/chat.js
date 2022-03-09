@@ -4,7 +4,6 @@ const seller = require("../models/product")
 
 function update_chatS(userid,to_id,msg,turn){
     
-console.log("updatinggg chattt",to_id)
     seller_chats.find({
         userid:userid,
         'Messages.to':to_id

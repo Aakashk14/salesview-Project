@@ -1,0 +1,83 @@
+<html>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+    <style>
+body{
+    background-color: rgb(214, 205, 205);
+}
+.login,.signup{
+    position: absolute;
+    left:30%;
+    top:30%;
+
+}
+.login input,.signup input{
+    display: block;
+    margin: 30px;
+    width: 300px;
+    height: 40px;
+}
+
+#note{
+    position: relative;
+    left:100px;
+}
+
+#signup_form,#login_form{
+    background-color: red;
+    font-size: larger;
+    position: relative;
+    left :100%;
+    bottom:150px;
+    width: 200px;
+}
+</style>
+
+<script>
+    $(()=>{
+
+        //location.href= location.href.replace("=/","=");
+        if(location.href.search("error=1") !=-1){
+            alert("Invalid login/Signup")
+            location.href=location.href.slice(0,location.href.indexOf("error")-1)
+        }
+        $("#login_form").on("click",function(){
+              $(".signup").css("display","none")
+              $(".login").css("display","block")
+              
+          
+        })
+        $("#signup_form").on("click",function(){
+
+
+            $(".login").css("display","none")
+            $(".signup").css("display","block")
+        })
+    })
+</script>
+    <body>
+        <% console.log("from brows redir",redir) %>
+        <div class="login" style="display: block;">
+            <p id="note"> Quick Account to track orders</p>
+            <form method="POST" action="/buyer/login?redir=<%=redir %>">
+                <input type="text" name="email" placeholder="Email" id="email">
+                <input type="password" name="password" placeholder="password" id="pass">
+                <input type="Submit" value="Login">
+                <input type="button" value="Signup{New User}" id="signup_form">
+            </form>
+
+            </div>
+           <div class="signup" style="display: none;">
+            <form method="POST" action="/buyer/Signup?redir=<%=redir %>">
+                <input type="text" name="email" placeholder="Email" id="email">
+                <input type="password" name="password" placeholder="password" id="pass">
+                <input type="Submit" value="Signup">
+                <input type="button" value="login" id="login_form">
+
+            </form>
+           </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,98 @@
+<html>
+    <link rel="stylesheet" href="header.css">
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+<style>
+   #items_table{
+            position: absolute;
+            left:60px;
+            top:20%;
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 40%;
+        
+          /*  background-color: rgba(224, 233, 223, 0.87); */
+        
+
+        }
+        #items_table td,#items_table th{
+            border: 1px solid #ddd;
+            padding: 10px;
+            word-wrap: break-word;
+
+
+        }
+    
+        #items_table th{
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #0c266d;
+            color: rgb(222, 228, 236);
+        }
+        #items_table td{
+            max-width: 100px;
+            overflow-x: hidden;
+            font-family: Arov;
+        }
+        #no_sales{
+            position: relative;
+            left:30%;
+            top:30%;
+        }
+</style>
+<script>
+    $(()=>{
+       $('.main').load("header.html"); 
+
+       $("select").on("change",function(){
+
+       order_id=$(this).attr('id')
+       myid= document.cookie.split("=")[1]
+       
+
+     //  $.get(`/order_status?order=${order_id}&user=${myid}`)
+    })
+})
+</script>
+<body>
+    <% if(sales[0].orders.length==0) {%>
+        <p id="no_sales"> No Sales</p>
+    <% }else{%>
+    <div class="items">
+        
+        <table id="items_table">
+            <tr>
+                <th>Order_id</th>
+                <th>Status</th>
+                <th>Shipping</th>
+                <th>Payment</th>
+                
+                </tr>
+            <% for(let i=0;i<sales[0].orders.length;i++) {%>
+                
+                <tr><td><%= sales[0].orders[i].order_id %></td>
+                    <td>New</td>
+                  <!-- <td><select id="<%= sales[0].orders[i].order_id %>" name="Status">
+                        <option value="New">New</option>
+                        <option value="Dispatching">Dispatching</option>
+                        <option value="Cancel">Cancel</option></select></td> !-->
+                
+                    <td><%=sales[0].orders[i].buyer[0].Address.street %> <br> <%=sales[0].orders[i].buyer[0].Address.city %></td>
+                    <td><%=sales[0].orders[i].buyer[0].Payment %></td>
+
+                </tr>
+                <% } %>
+            <% } %>
+            
+                </table>
+    </div>
+    <div class="main">
+
+    </div>
+
+</body>
+</html>

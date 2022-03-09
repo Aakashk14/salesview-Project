@@ -1,0 +1,126 @@
+<html>
+    <link rel="stylesheet" href="/header.css"> 
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+<style>
+  
+    .item{
+        position: absolute;
+        left:10%;
+        top:10%;
+        height: 600px;
+        width: 1000px;
+        
+    }
+    .main_link{
+        position: relative;
+        top:20%;
+        height: 200px;
+    }
+    #link{
+        width: 600px;
+        height: 35px;
+        padding: 10px;
+        color: rgb(32, 32, 131);
+        font-size: large;
+        border-radius: 5px;
+        position: absolute;
+        top:40%;
+        left:15%;
+
+    }
+    .about p {
+        font-size: larger;
+        margin:14px;
+        display: inline-block;
+        cursor: default;
+
+    }
+    #status{
+        color: green;
+        position: relative;
+        top:89px;
+        left:10px;
+        cursor:default;
+    }
+    #btn1{
+        position: relative;
+        left: 150px;
+        bottom:10px;
+        width: 120px;
+        height: 30px;
+        background-color: rgb(240, 240, 240);
+        border-radius: 4px;
+    }
+    #name:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+</style>
+<script>
+    $(()=>{
+        const socket = io()
+        socket.on("message",(data)=>{
+                $("#new").css("display","block")
+            })
+        $(".main").load("/header.html")
+
+        $("#btn1").on("click",()=>{
+            let data={}
+           
+            data.change=true;
+           if($("#btn1").attr("d_act")=="true"){
+               data.change=false
+               
+           }
+             data.item = location.href.lastIndexOf("/")
+            data.item = location.href.substring(data.item+1)
+            $.ajax({
+                url:'/de_act',
+                method:"Post",
+                data:data,
+                success:function(response){
+                    if(response=="OK"){
+                        location.reload()
+                    }
+                }
+            })
+        })
+    })
+</script>
+<body>
+
+    <div class="item">
+        <% console.log("neww brow",data) %>
+        <div class="about">
+        <p id="title">Item<%= data.items[0].item_id %></p>
+        <p id="name" >Item <%= data.items[0].Name %></p>
+        <img src="/image/<%= data.userid %>/<%=data.items[0].item_id %>/<%= data.items[0].Images %>" width="150px" height="100px">
+        
+        </div>
+    <div class="Main_link">
+        <p id="status">Buy Link</p>
+        <% if(data.items[0].Link==true){ %>
+        <input type="button" id="btn1" d_act="true" value="Deactivate Link">
+        <% }else{ %>
+            <input type="button" id="btn1" d_act="false" value="Activate Link">
+        <% }%>
+
+
+        <input type="text" value="<%=url %> " id="link" readonly>
+    </div>
+    </div>
+
+    <div class="main">
+        
+        
+
+
+    </div>
+
+</body>
+</html>

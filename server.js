@@ -17,19 +17,7 @@ require("./Main/Messages/socket_config")(io)
 
 app.use(x_session)
 
-// const basicAuth = require('express-basic-auth');
-//  app.use(basicAuth({
-//      users: { 'admin': 'p123' },
-//      challenge: true,
-//   }))
 
-
-// app.use(function(req, res, next) {
-//     res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-//       res.header("Access-Control-Allow-Origin", "*");
-//       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//       next();
-//     });
 
 app.set("view engine","ejs");
 const host="0.0.0.0"

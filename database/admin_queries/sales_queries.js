@@ -3,9 +3,13 @@ const{user_storage}= require("../../Main/fn")
 
 const mongoose = require('mongoose')
 
-// var config = JSON.parse(process.env.APP_CONFIG);
-// var mongoPassword = 'aakash';
 mongoose.connect('mongodb://localhost:27017/salesview',{autoIndex:true})
+
+
+
+// for evennode /
+// var config = JSON.parse(process.env.APP_CONFIG);
+// var mongoPassword = ''; // 
 //mongoose.connect("mongodb://"+config.mongo.user+":"+encodeURIComponent(mongoPassword)+"@"+config.mongo.hostString,{autoIndex:true})
 
 
